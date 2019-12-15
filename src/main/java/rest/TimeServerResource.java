@@ -12,7 +12,7 @@ public class TimeServerResource {
     public String time() {
             return "Time: " + LocalDateTime
                     .now()
-                    .format(DateTimeFormatter.ofPattern("dd. MMMM yyyy, hh:mm:ss"));
+                    .format(DateTimeFormatter.ofPattern("dd. MM yyyy, hh:mm:ss"));
 
         }
 }
