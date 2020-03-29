@@ -1,9 +1,0 @@
-08-assignment-android-kotlin-udacity-JohannHaag
-------------------------
-
-Android-Course:
-    
-                Lesson 1 finished (Dice Roller)
-
-                Lesson 2 finished (AboutMe,ColorMyViews)
-
