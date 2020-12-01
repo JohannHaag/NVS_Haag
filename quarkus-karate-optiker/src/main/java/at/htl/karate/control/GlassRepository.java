@@ -1,38 +1,39 @@
 package at.htl.karate.control;
 
 import at.htl.karate.entity.Glasses;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Stateless
-public class GlassRepository {
+@ApplicationScoped
+public class GlassRepository implements PanacheRepository<Glasses> {
 
     @Inject
-    EntityManager em;
+    EntityManager entityManager;
 
-
-    public List<Glasses> findAll() {
-
-        return em.createNamedQuery("Glasses.findAll", Glasses.class).getResultList();
+    public List<Glasses> GetAll(){
+        return findAll().list();
     }
 
-    public Glasses save(Glasses glasses) {
-
-        em.persist(glasses);
+    @Transactional
+    public Glasses saveGlasses(Glasses glasses){
+        entityManager.persist(glasses);
         return glasses;
     }
 
-    public Glasses findById(long id) {
-
-        return em.createNamedQuery("Glasses.findById", Glasses.class).setParameter("id", id).getSingleResult();
+    @Transactional
+    public Glasses updateGlasses(Glasses glasses) {
+        return entityManager.merge(glasses);
     }
 
-    public void delete(long id) {
-        em.remove(id);
+    @Transactional
+    public Glasses deleteGlasses(Long id) {
+        Glasses glasses = entityManager.find(Glasses.class,id);
+        entityManager.remove(glasses);
+        return glasses;
     }
 }

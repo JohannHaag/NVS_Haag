@@ -1,39 +1,39 @@
 package at.htl.karate.control;
 
-import at.htl.karate.entity.Glasses;
 import at.htl.karate.entity.User;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Stateless
-public class UserRepository {
+@ApplicationScoped
+public class UserRepository implements PanacheRepository<User> {
 
     @Inject
-    EntityManager em;
+    EntityManager entityManager;
 
-
-    public List<User> findAll() {
-
-        return em.createNamedQuery("User.findAll", User.class).getResultList();
+    public List<User> GetAll(){
+        return findAll().list();
     }
 
-    public User save(User user) {
-
-        em.persist(user);
+    @Transactional
+    public User saveUser(User user){
+        entityManager.persist(user);
         return user;
     }
 
-    public User findById(long id) {
-
-        return em.createNamedQuery("User.findById", User.class).setParameter("id", id).getSingleResult();
+    @Transactional
+    public User updateUser(User updateuser) {
+        return entityManager.merge(updateuser);
     }
 
-    public void delete(long id) {
-        em.remove(id);
+    @Transactional
+    public User deleteUser(Long id) {
+        User user = entityManager.find(User.class,id);
+        entityManager.remove(user);
+        return user;
     }
 }
