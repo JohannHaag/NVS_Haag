@@ -14,7 +14,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.5.1</junit.jupiter.version>
-        <glassfish.jersey.version>2.29.1</glassfish.jersey.version>
+        <glassfish.jersey.version>2.34</glassfish.jersey.version>
     </properties>
 
     <dependencies>
